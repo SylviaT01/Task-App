@@ -1,1 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
+@import "tailwindcss";
+
+
+body {
+  margin: 0;
+  font-family: "Urbanist", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  
+  background-image: url('https://img.freepik.com/free-vector/silver-flow-background_53876-93496.jpg?t=st=1744197162~exp=1744200762~hmac=ef9f1a503a4aab0595e777e801ed243e7867eefa576ea05f99c4e15d1dbc7210&w=996');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-attachment: fixed;
+
+  color: white;
+}
