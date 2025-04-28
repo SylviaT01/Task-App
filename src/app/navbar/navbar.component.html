@@ -1,1 +1,51 @@
-<p>navbar works!</p>
+<!-- navbar.component.html -->
+<nav class="bg-blue-600 text-white shadow-md">
+    <div class="container mx-auto px-4">
+      <div class="flex justify-between items-center py-4">
+        <!-- Logo/Brand -->
+        <div class="flex items-center">
+          <span class="text-xl font-bold">Task Manager</span>
+        </div>
+        
+        <!-- Desktop Navigation -->
+        <div class="hidden md:flex items-center space-x-6">
+          <a routerLink="/tasks" routerLinkActive="border-b-2 border-white" class="py-2 hover:text-blue-200 transition">All Tasks</a>
+          <a routerLink="/tasks/new" routerLinkActive="border-b-2 border-white" class="py-2 hover:text-blue-200 transition">Add Task</a>
+          
+          <!-- Notification Badge -->
+          <div class="flex items-center bg-blue-700 px-3 py-1 rounded-full">
+            <span class="mr-2">Incomplete Tasks:</span>
+            <span class="bg-white text-blue-600 font-bold rounded-full w-6 h-6 flex items-center justify-center">
+              {{ incompleteCount$ | async }}
+            </span>
+          </div>
+        </div>
+        
+        <!-- Mobile Menu Button -->
+        <div class="md:hidden">
+          <button class="focus:outline-none" (click)="toggleMenu()">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path *ngIf="!isMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+              <path *ngIf="isMenuOpen" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+      
+      <!-- Mobile Navigation -->
+      <div class="md:hidden" [ngClass]="{'hidden': !isMenuOpen, 'block': isMenuOpen}">
+        <div class="flex flex-col space-y-3 pb-4">
+          <a routerLink="/tasks" routerLinkActive="font-bold" class="py-2 hover:bg-blue-700 px-2 rounded" (click)="toggleMenu()">All Tasks</a>
+          <a routerLink="/tasks/new" routerLinkActive="font-bold" class="py-2 hover:bg-blue-700 px-2 rounded" (click)="toggleMenu()">Add Task</a>
+          
+          <!-- Mobile Notification Badge -->
+          <div class="flex items-center bg-blue-700 px-3 py-2 rounded">
+            <span class="mr-2">Incomplete Tasks:</span>
+            <span class="bg-white text-blue-600 font-bold rounded-full w-6 h-6 flex items-center justify-center">
+              {{ incompleteCount$ | async }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>

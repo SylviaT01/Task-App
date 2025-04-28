@@ -1,1 +1,66 @@
-<p>task-form works!</p>
+<!-- task-form.component.html -->
+<div class="max-w-2xl mx-auto">
+    <h2 class="text-2xl font-semibold text-gray-800 mb-6">{{ isEditMode ? 'Edit Task' : 'Add New Task' }}</h2>
+    
+    <form [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="bg-white shadow-md rounded-lg p-6">
+      <div class="mb-6">
+        <label for="title" class="block text-gray-700 text-sm font-bold mb-2">Title *</label>
+        <input 
+          type="text" 
+          id="title" 
+          formControlName="title"
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          [ngClass]="{'border-red-500': taskForm.get('title')?.invalid && taskForm.get('title')?.touched}">
+        <div *ngIf="taskForm.get('title')?.invalid && taskForm.get('title')?.touched" class="text-red-500 text-xs italic mt-1">
+          Title is required
+        </div>
+      </div>
+      
+      <div class="mb-6">
+        <label for="description" class="block text-gray-700 text-sm font-bold mb-2">Description</label>
+        <textarea 
+          id="description" 
+          formControlName="description"
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline h-32"></textarea>
+      </div>
+      
+      <div class="mb-6">
+        <label for="dueDate" class="block text-gray-700 text-sm font-bold mb-2">Due Date *</label>
+        <input 
+          type="date" 
+          id="dueDate" 
+          formControlName="dueDate"
+          [min]="minDate"
+          class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+          [ngClass]="{'border-red-500': taskForm.get('dueDate')?.invalid && taskForm.get('dueDate')?.touched}">
+        <div *ngIf="taskForm.get('dueDate')?.invalid && taskForm.get('dueDate')?.touched" class="text-red-500 text-xs italic mt-1">
+          <span *ngIf="taskForm.get('dueDate')?.errors?.['required']">Due date is required</span>
+          <span *ngIf="taskForm.get('dueDate')?.errors?.['pastDate']">Due date must be in the future</span>
+        </div>
+      </div>
+      
+      <div class="mb-6">
+        <div class="flex items-center">
+          <input 
+            type="checkbox" 
+            id="completed" 
+            formControlName="completed"
+            class="mr-2">
+          <label for="completed" class="text-gray-700 text-sm font-bold">Task Completed</label>
+        </div>
+      </div>
+      
+      <div class="flex items-center justify-between">
+        <button 
+          type="submit"
+          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+          {{ isEditMode ? 'Update Task' : 'Add Task' }}
+        </button>
+        <a 
+          routerLink="/tasks"
+          class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+          Cancel
+        </a>
+      </div>
+    </form>
+  </div>

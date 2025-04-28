@@ -1,23 +1,18 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { NotificationService } from '../services/notification.service';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
-  selector: 'app-navbar',
+  selector: 'app-notification',
   standalone: false,
-  templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+  templateUrl: './notification.component.html',
+  styleUrl: './notification.component.css'
 })
-export class NavbarComponent {
+export class NotificationComponent {
   incompleteCount$: Observable<number>;
-  isMenuOpen = false;
   
   constructor(private notificationService: NotificationService) {
     this.incompleteCount$ = this.notificationService.getIncompleteTasksCount();
-  }
-  
-  toggleMenu(): void {
-    this.isMenuOpen = !this.isMenuOpen;
   }
 
 }
