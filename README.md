@@ -1,8 +1,68 @@
-# TaskApp
+# Task Management Application (Angular)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.6.
+## Project Overview
 
-## Development server
+This is a Task Management Application built using Angular. The application allows users to manage their tasks efficiently by providing features such as task listing, filtering, adding, editing, and state management.
+
+### Features
+
+- Display a list of tasks fetched from a mock API.
+- Filter tasks by completion status (Completed / Not Completed).
+- Delete tasks from the list.
+- Mark tasks as complete or incomplete.
+- Add and edit tasks using a reactive form with validation.
+- Real-time notification of the number of incomplete tasks using state management.
+- Responsive and visually appealing UI using Angular Material or Bootstrap.
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js and npm installed on your machine.
+- Angular CLI installed globally (optional but recommended).
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone git@github.com:SylviaT01/Task-App.git
+   ```
+2. Navigate to the project directory:
+   ```bash
+   cd task-app
+   ```
+3. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+### Running the Application
+
+Start the development server with:
+
+```bash
+ng serve
+```
+
+Open your browser and navigate to `http://localhost:4200/`. The application will automatically reload if you change any source files.
+
+## Project Structure
+
+- `src/app/pages/task-list/` - Task list component with filtering and actions.
+- `src/app/pages/task-form/` - Task add/edit form with validation.
+- `src/app/services/task.service.ts` - Service for managing task data and state.
+- `src/app/services/notification.service.ts` - Service for managing notifications.
+
+
+## Additional Resources
+
+For more information on Angular CLI and development, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli).
+
+---
+
+## Angular CLI Default Commands
+
+### Development server
 
 To start a local development server, run:
 
@@ -10,51 +70,20 @@ To start a local development server, run:
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### Code scaffolding
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+Generate a new component:
 
 ```bash
 ng generate component component-name
 ```
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Contributions
+Contributions are welcome! If you'd like to contribute to this project, please fork the repository and submit a pull request.
 
-```bash
-ng generate --help
-```
+## Author
+[Sylvia Chebet](https://github.com/SylviaT01)
 
-## Building
+## License
+This project is licensed under the MIT License.
 
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
-# Task-App
