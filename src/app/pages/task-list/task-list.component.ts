@@ -9,13 +9,28 @@ import { Task, TaskService } from '../../services/task.service';
   styleUrl: './task-list.component.css'
 })
 export class TaskListComponent implements OnInit {
+ 
   tasks$: Observable<Task[]>;
   filteredTasks$: Observable<Task[]>;
   filterStatus: string = 'all';
   
+ 
+  incompleteTasks$: Observable<number>;
+  completedTasks$: Observable<number>;
+  
   constructor(private taskService: TaskService) {
     this.tasks$ = this.taskService.getTasks();
     this.filteredTasks$ = this.tasks$;
+    
+    this.incompleteTasks$ = this.filteredTasks$.pipe(
+      map(tasks => tasks?.filter(task => !task.completed) || []),
+      map(tasks => tasks.length)
+    );
+    
+    this.completedTasks$ = this.filteredTasks$.pipe(
+      map(tasks => tasks?.filter(task => task.completed) || []),
+      map(tasks => tasks.length)
+    );
   }
   
   ngOnInit(): void {
@@ -32,6 +47,16 @@ export class TaskListComponent implements OnInit {
         map((tasks: Task[]) => tasks.filter((task: Task) => task.completed === isCompleted))
       );
     }
+    
+    this.incompleteTasks$ = this.filteredTasks$.pipe(
+      map(tasks => tasks?.filter(task => !task.completed) || []),
+      map(tasks => tasks.length)
+    );
+    
+    this.completedTasks$ = this.filteredTasks$.pipe(
+      map(tasks => tasks?.filter(task => task.completed) || []),
+      map(tasks => tasks.length)
+    );
   }
   
   deleteTask(id: number): void {

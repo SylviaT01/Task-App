@@ -1,29 +1,63 @@
-<!-- task-list.component.html -->
-<div class="mb-6">
-    <div class="flex justify-between items-center mb-4">
-      <h2 class="text-2xl font-semibold text-gray-800">Task List</h2>
-      <div class="flex space-x-2">
-        <button 
-          [ngClass]="{'bg-blue-600': filterStatus === 'all', 'bg-gray-300': filterStatus !== 'all'}"
-          class="px-4 py-2 rounded text-white font-medium hover:bg-blue-700 transition"
-          (click)="applyFilter('all')">
-          All
-        </button>
-        <button 
-          [ngClass]="{'bg-blue-600': filterStatus === 'completed', 'bg-gray-300': filterStatus !== 'completed'}"
-          class="px-4 py-2 rounded text-white font-medium hover:bg-blue-700 transition"
-          (click)="applyFilter('completed')">
-          Completed
-        </button>
-        <button 
-          [ngClass]="{'bg-blue-600': filterStatus === 'incomplete', 'bg-gray-300': filterStatus !== 'incomplete'}"
-          class="px-4 py-2 rounded text-white font-medium hover:bg-blue-700 transition"
-          (click)="applyFilter('incomplete')">
-          Incomplete
-        </button>
-      </div>
+<div class="flex h-screen bg-gray-900 text-white">
+  <aside class="w-64 bg-gradient-to-b from-gray-800 to-gray-900 flex flex-col py-6 px-4 space-y-6 shadow-lg">
+  
+    <div class="text-2xl font-bold text-white tracking-wide flex items-center">
+      <i class="material-icons mr-2 text-orange-400">dashboard</i>
+      Task Panel
+    </div>
+    
+    <div class="border-b border-gray-700"></div>
+    
+   
+    <div class="flex flex-col space-y-2">
+      <h3 class="text-xs uppercase tracking-wider text-gray-400 font-semibold mb-1">Filter Tasks</h3>
+      
+      <button [ngClass]="{'bg-orange-500 text-white': filterStatus === 'all', 'bg-gray-700 text-gray-300': filterStatus !== 'all'}"
+        class="flex items-center px-4 py-2 rounded-lg transition-all duration-200 hover:bg-orange-600 hover:text-white" 
+        (click)="applyFilter('all')">
+        <i class="material-icons mr-2 text-sm">list_alt</i>
+        All Tasks
+      </button>
+      
+      <button [ngClass]="{'bg-green-500 text-white': filterStatus === 'completed', 'bg-gray-700 text-gray-300': filterStatus !== 'completed'}"
+        class="flex items-center px-4 py-2 rounded-lg transition-all duration-200 hover:bg-green-600 hover:text-white"
+        (click)="applyFilter('completed')">
+        <i class="material-icons mr-2 text-sm">check_circle</i>
+        Completed
+      </button>
+      
+      <button [ngClass]="{'bg-blue-500 text-white': filterStatus === 'incomplete', 'bg-gray-700 text-gray-300': filterStatus !== 'incomplete'}"
+        class="flex items-center px-4 py-2 rounded-lg transition-all duration-200 hover:bg-blue-600 hover:text-white"
+        (click)="applyFilter('incomplete')">
+        <i class="material-icons mr-2 text-sm">pending_actions</i>
+        Incomplete
+      </button>
     </div>
   
+    <div class="mt-auto bg-gray-700 bg-opacity-50 rounded-xl p-4 border border-gray-700">
+      <h3 class="text-xs uppercase tracking-wider text-gray-400 font-semibold mb-2">Task Summary</h3>
+      <div class="flex justify-between items-center">
+        <div class="flex flex-col">
+          <span class="text-sm text-gray-300">Incomplete</span>
+          <span class="text-lg font-bold text-orange-400">
+            {{ incompleteTasks$ | async }}
+          </span>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-sm text-gray-300">Completed</span>
+          <span class="text-lg font-bold text-green-400">
+            {{ completedTasks$ | async }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </aside>
+  <main class="flex-1 overflow-y-auto p-8">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-2xl font-semibold text-gray-800">Task List</h2>
+      
+    </div>
+
     <div class="bg-white shadow-md rounded-lg overflow-hidden">
       <table class="min-w-full divide-y divide-gray-200">
         <thead class="bg-gray-50">
@@ -42,8 +76,7 @@
                 <div class="text-sm text-gray-500">{{ task.description }}</div>
               </td>
               <td class="px-6 py-4 whitespace-nowrap">
-                <span 
-                  [ngClass]="task.completed ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'" 
+                <span [ngClass]="task.completed ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'"
                   class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full">
                   {{ task.completed ? 'Completed' : 'Not Completed' }}
                 </span>
@@ -52,23 +85,36 @@
                 {{ formatDate(task.dueDate) }}
               </td>
               <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
-                <button 
-                  (click)="toggleTaskCompletion(task.id)"
+                <button (click)="toggleTaskCompletion(task.id)"
                   [ngClass]="task.completed ? 'bg-yellow-500 hover:bg-yellow-600' : 'bg-green-500 hover:bg-green-600'"
                   class="px-3 py-1 rounded text-white">
                   {{ task.completed ? 'Mark Incomplete' : 'Mark Complete' }}
                 </button>
-                <a 
-                  [routerLink]="['/tasks/edit', task.id]"
-                  class="bg-blue-500 hover:bg-blue-600 px-3 py-1 rounded text-white">
-                  Edit
+                <a [routerLink]="['/tasks/edit', task.id]"
+                  class="rounded text-gray-600">
+                  <i class="material-icons mr-2 text-sm">edit</i>
                 </a>
-                <button 
-                  (click)="deleteTask(task.id)"
-                  class="bg-red-500 hover:bg-red-600 px-3 py-1 rounded text-white">
-                  Delete
+                <button (click)="deleteTask(task.id)" class=" rounded text-gray-600">
+                  <i class="material-icons mr-2 text-sm">delete</i>
                 </button>
               </td>
+            
+              <!-- <td class="px-6 py-4 whitespace-nowrap text-sm font-medium space-x-2">
+                <button (click)="toggleTaskCompletion(task.id)"
+                  [ngClass]="task.completed ? 'bg-yellow-500 hover:bg-yellow-600' : 'bg-green-500 hover:bg-green-600'"
+                  class="px-3 py-1 rounded text-white flex items-center space-x-1">
+                  <i class="material-icons mr-2 text-sm">{{ task.completed ? 'undo' : 'check_circle' }}</i>
+                  <span>{{ task.completed ? 'Mark Incomplete' : 'Mark Complete' }}</span>
+                </button>
+                <a [routerLink]="['/tasks/edit', task.id]"
+                  class=" rounded text-gray-600 flex items-center space-x-1">
+                  <i class="material-icons mr-2 text-sm">edit</i>
+                </a>
+                <button (click)="deleteTask(task.id)"
+                  class=" rounded text-gray-600 flex items-center space-x-1">
+                  <i class="material-icons mr-2 text-sm">delete</i>
+                </button>
+              </td> -->
             </tr>
           </ng-container>
           <ng-template #noTasks>
@@ -81,4 +127,5 @@
         </tbody>
       </table>
     </div>
-  </div>
+  </main>
+</div>

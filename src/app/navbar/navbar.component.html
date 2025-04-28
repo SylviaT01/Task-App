@@ -1,21 +1,18 @@
-<!-- navbar.component.html -->
-<nav class="bg-blue-600 text-white shadow-md">
+<nav class=" text-white shadow-md">
     <div class="container mx-auto px-4">
       <div class="flex justify-between items-center py-4">
-        <!-- Logo/Brand -->
         <div class="flex items-center">
           <span class="text-xl font-bold">Task Manager</span>
         </div>
         
-        <!-- Desktop Navigation -->
         <div class="hidden md:flex items-center space-x-6">
-          <a routerLink="/tasks" routerLinkActive="border-b-2 border-white" class="py-2 hover:text-blue-200 transition">All Tasks</a>
-          <a routerLink="/tasks/new" routerLinkActive="border-b-2 border-white" class="py-2 hover:text-blue-200 transition">Add Task</a>
+          <a routerLink="/tasks" routerLinkActive="border-b-2 border-white" class="py-2 hover:text-orange-600 transition">All Tasks</a>
+          <a routerLink="/tasks/new" routerLinkActive="border-b-2 border-white" class="py-2 hover:text-orange-600 transition">Add Task</a>
           
-          <!-- Notification Badge -->
-          <div class="flex items-center bg-blue-700 px-3 py-1 rounded-full">
+
+          <div class="flex items-center bg-orange-300 px-3 py-1 rounded-full">
             <span class="mr-2">Incomplete Tasks:</span>
-            <span class="bg-white text-blue-600 font-bold rounded-full w-6 h-6 flex items-center justify-center">
+            <span class="bg-white text-orange-600 font-bold rounded-full w-6 h-6 flex items-center justify-center">
               {{ incompleteCount$ | async }}
             </span>
           </div>

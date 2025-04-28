@@ -1,8 +1,6 @@
-<!-- task-form.component.html -->
-<div class="max-w-2xl mx-auto">
-    <h2 class="text-2xl font-semibold text-gray-800 mb-6">{{ isEditMode ? 'Edit Task' : 'Add New Task' }}</h2>
-    
+<div class="max-w-2xl mx-auto mt-4 mb-4">
     <form [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="bg-white shadow-md rounded-lg p-6">
+      <h2 class="text-2xl font-semibold text-center text-gray-800 mb-6">{{ isEditMode ? 'Edit Task' : 'Add New Task' }}</h2>
       <div class="mb-6">
         <label for="title" class="block text-gray-700 text-sm font-bold mb-2">Title *</label>
         <input 
@@ -53,7 +51,7 @@
       <div class="flex items-center justify-between">
         <button 
           type="submit"
-          class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+          class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
           {{ isEditMode ? 'Update Task' : 'Add Task' }}
         </button>
         <a 
