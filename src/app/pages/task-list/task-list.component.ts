@@ -2,6 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable, map, combineLatest } from 'rxjs'; 
 import { Task, TaskService } from '../../services/task.service';
+import Swal from 'sweetalert2'; 
 
 @Component({
   selector: 'app-task-list',
@@ -101,7 +102,7 @@ export class TaskListComponent implements OnInit {
   
   deleteTask(id: number): void {
     this.taskService.deleteTask(id);
-    alert('Task deleted successfully')
+    this.showSuccessNotification('Task Deleted', 'The task has been deleted successfully.');
   }
   
   toggleTaskCompletion(id: number): void {
@@ -190,4 +191,38 @@ export class TaskListComponent implements OnInit {
       })
     );
   }
+  showNotification(icon: 'success' | 'error' | 'warning' | 'info' | 'question', 
+                     title: string, 
+                     text: string): void {
+      Swal.fire({
+        icon: icon,
+        title: title,
+        text: text,
+        timer: 3000,
+        timerProgressBar: true,
+        showConfirmButton: false
+      });
+    }
+    
+   
+    showSuccessNotification(title: string, text: string): void {
+      this.showNotification('success', title, text);
+    }
+    
+    
+    confirmAction(title: string, text: string, confirmButtonText: string = 'Yes'): Promise<boolean> {
+      return new Promise((resolve) => {
+        Swal.fire({
+          title: title,
+          text: text,
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: confirmButtonText
+        }).then((result) => {
+          resolve(result.isConfirmed);
+        });
+      });
+    }
 }
